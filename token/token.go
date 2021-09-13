@@ -4,8 +4,20 @@ package token
 type TokenType string
 
 type Token struct {
-	Type TokenType // トークン名
-	Literal string // 具体的な値
+	Type    TokenType // トークン名
+	Literal string    // 具体的な値
+}
+
+var keywords = map[string]TokenType{
+	"fn":  FUNCTION,
+	"let": LET,
+}
+
+func LookupIdent(ident string) TokenType {
+	if tok, ok := keywords[ident]; ok {
+		return tok
+	}
+	return IDENT
 }
 
 const (
@@ -23,10 +35,10 @@ const (
 
 	// 演算子
 	ASSIGN = "="
-	PLUS = "+"
+	PLUS   = "+"
 
 	// デリミタ
-	COMMA = ","
+	COMMA     = ","
 	SEMICOLON = ";"
 
 	LPAREN = "("
@@ -36,5 +48,5 @@ const (
 
 	// キーワード
 	FUNCTION = "FUNCTION"
-	LET = "LET"
+	LET      = "LET"
 )
